@@ -1,8 +1,9 @@
 function createForceLayout(root, g, width, height, nodeSpacing) {
     const simulation = d3.forceSimulation(root.descendants())
         .force("link", d3.forceLink(root.links()).id(d => d.id).distance(nodeSpacing))
-        .force("charge", d3.forceManyBody().strength(-500))
+        .force("charge", d3.forceManyBody().strength(-100))
         .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(d => d.radius + 20))  // Adjust the buffer
         .on("tick", ticked);
 
     // Create links
@@ -40,6 +41,32 @@ function createForceLayout(root, g, width, height, nodeSpacing) {
     // Add utilization bars for individual nodes
     addUtilizationBars(node.filter(d => d.depth === 2));
 
+
+    // Define the drag functions
+    function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        //d.fx = null;
+        //d.fy = null;
+    }
+
+    // Attach drag behavior to the nodes
+    node.call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    // Update positions on each tick
     function ticked() {
         link
             .attr("x1", d => d.source.x)
@@ -51,3 +78,4 @@ function createForceLayout(root, g, width, height, nodeSpacing) {
             .attr("transform", d => `translate(${d.x},${d.y})`);
     }
 }
+
