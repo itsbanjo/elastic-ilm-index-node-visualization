@@ -1,0 +1,44 @@
+import json
+import logging
+from config import VISUALIZATION_OUTPUT
+
+logger = logging.getLogger(__name__)
+
+class VisualizationGenerator:
+    def __init__(self, processed_data):
+        self.cluster_data = processed_data['cluster_data']
+        self.rolling_indices = processed_data['rolling_indices']
+
+    def generate_visualization(self):
+        try:
+            with open('visualization/templates/visualization_template.html', 'r') as template_file:
+                template = template_file.read()
+
+            cluster_data_json = json.dumps(self.cluster_data)
+            rolling_indices_json = json.dumps(self.rolling_indices)
+
+            visualization = template.replace(
+                '{{ CLUSTER_DATA }}', cluster_data_json
+            ).replace(
+                '{{ ROLLING_INDICES }}', rolling_indices_json
+            )
+
+            with open(VISUALIZATION_OUTPUT, 'w') as output_file:
+                output_file.write(visualization)
+
+            logger.info(f"Visualization generated: {VISUALIZATION_OUTPUT}")
+            logger.debug(f"Cluster data size: {len(cluster_data_json)} characters")
+            logger.debug(f"Rolling indices data size: {len(rolling_indices_json)} characters")
+
+        except Exception as e:
+            logger.error(f"Error generating visualization: {str(e)}")
+            raise
+
+    def validate_data(self):
+        if not isinstance(self.cluster_data, dict) or 'name' not in self.cluster_data or 'children' not in self.cluster_data:
+            logger.error("Invalid cluster data structure")
+            return False
+        if not isinstance(self.rolling_indices, dict):
+            logger.error("Invalid rolling indices data structure")
+            return False
+        return True
