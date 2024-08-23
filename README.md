@@ -4,6 +4,8 @@
 
 This project provides a visualization tool for Elasticsearch cluster diagnostics. It processes diagnostic data from an Elasticsearch cluster and generates an interactive HTML visualization of the cluster's structure, including node types, individual nodes, indices, and rolling index patterns.
 
+![Sample](artefacts/sample.png)
+
 ## Disclaimer
 
 **IMPORTANT:** This tool is provided as-is, without any warranties or guarantees. Neither the creator of this tool nor Elastic (the company behind Elasticsearch) can be held responsible for any issues, data loss, or damage that may occur from using this tool. Use it at your own risk and always ensure you have proper backups of your Elasticsearch data before running any diagnostic or visualization tools.
