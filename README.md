@@ -22,12 +22,12 @@ This tool is not officially supported by Elastic and is not a part of the offici
 
 1. Clone this repository:
    ```
-   git clone https://github.com/your-username/elasticsearch-diagnostics-visualizer.git
+   git clone https://github.com/itsbanjo/elastic-ilm-index-node-visualization.git
    ```
 
 2. Navigate to the project directory:
    ```
-   cd elasticsearch-diagnostics-visualizer
+   cd elastics-ilm-index-node-visualization
    ```
 
 3. Install the required Python libraries:
