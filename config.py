@@ -12,4 +12,4 @@ REQUIRED_FILES = [
 ]
 
 # Visualization settings
-VISUALIZATION_OUTPUT = 'elasticsearch_cluster_visualization.html'
+VISUALIZATION_OUTPUT = 'report/elasticsearch_cluster_visualization.html'

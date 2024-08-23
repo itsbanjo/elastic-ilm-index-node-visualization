@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elasticsearch Cluster Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Elasticsearch Cluster Visualization</h1>
+    <div class="zoom-controls">
+        <button id="zoom-in">+</button>
+        <button id="zoom-out">-</button>
+        <button id="reset-zoom">Reset</button>
+    </div>
+    <div class="filter-controls">
+        <select id="filterType">
+            <option value="none">None (Cluster, Node Type, Node only)</option>
+            <option value="rolling">Rolling Indices</option>
+            <option value="index">Individual Indices</option>
+        </select>
+        <select id="filterValue" disabled>
+            <option value="all">All</option>
+        </select>
+        <select id="layoutType">
+            <option value="tree">Tree Layout</option>
+            <option value="force">Force-Directed Layout</option>
+        </select>
+    </div>
+    <div id="chart"></div>
+
+    <script>
+        const data = {{ CLUSTER_DATA }};
+        const rollingIndices = {{ ROLLING_INDICES }};
+        const rollingIndicesSize = {{ ROLLING_INDICES_SIZE }};
+        const allIndices = {{ ALL_INDICES }};
+    </script>
+    <script src="nodeUtils.js"></script>
+    <script src="utilizationBars.js"></script>
+    <script src="tooltips.js"></script>
+    <script src="dataUtils.js"></script>
+    <script src="treeLayout.js"></script>
+    <script src="forceLayout.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

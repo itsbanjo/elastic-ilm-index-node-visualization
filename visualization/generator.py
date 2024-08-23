@@ -1,4 +1,5 @@
 import json
+import os
 import logging
 from config import VISUALIZATION_OUTPUT
 
@@ -23,11 +24,15 @@ class VisualizationGenerator:
         try:
             logger.debug("Starting visualization generation")
             
-            with open('visualization/templates/visualization_template.html', 'r') as template_file:
+            template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+            
+            # Read the main HTML template
+            with open(os.path.join(template_dir, 'index.html'), 'r') as template_file:
                 template = template_file.read()
             
             logger.debug(f"Template file read, size: {len(template)} characters")
 
+            # Prepare data for injection into the template
             cluster_data_json = json.dumps(self.cluster_data)
             rolling_indices_json = json.dumps(self.rolling_indices)
             rolling_indices_size_json = json.dumps(self.rolling_indices_size)
@@ -38,6 +43,7 @@ class VisualizationGenerator:
             logger.debug(f"Rolling indices size data size: {len(rolling_indices_size_json)} characters")
             logger.debug(f"All indices data size: {len(all_indices_json)} characters")
 
+            # Replace placeholders in the template
             visualization = template.replace(
                 '{{ CLUSTER_DATA }}', cluster_data_json
             ).replace(
@@ -50,8 +56,29 @@ class VisualizationGenerator:
 
             logger.debug(f"Placeholders replaced, new visualization size: {len(visualization)} characters")
 
+            # Write the final HTML file
             with open(VISUALIZATION_OUTPUT, 'w') as output_file:
                 output_file.write(visualization)
+
+            # Copy JavaScript files to the output directory
+            js_files = [
+                'nodeUtils.js', 'utilizationBars.js', 'tooltips.js', 'dataUtils.js',
+                'treeLayout.js', 'forceLayout.js', 'main.js'
+            ]
+            output_dir = os.path.dirname(VISUALIZATION_OUTPUT)
+            for js_file in js_files:
+                src = os.path.join(template_dir, js_file)
+                dst = os.path.join(output_dir, js_file)
+                with open(src, 'r') as f_src, open(dst, 'w') as f_dst:
+                    f_dst.write(f_src.read())
+                logger.debug(f"Copied {js_file} to output directory")
+
+            # Copy CSS file to the output directory
+            css_src = os.path.join(template_dir, 'styles.css')
+            css_dst = os.path.join(output_dir, 'styles.css')
+            with open(css_src, 'r') as f_src, open(css_dst, 'w') as f_dst:
+                f_dst.write(f_src.read())
+            logger.debug("Copied styles.css to output directory")
 
             logger.info(f"Visualization generated: {VISUALIZATION_OUTPUT}")
 

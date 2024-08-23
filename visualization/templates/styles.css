@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+#chart {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+.node {
+    cursor: pointer;
+}
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1px;
+}
+.rolling-link {
+    fill: none;
+    stroke: #404080;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
+}
+.label {
+    font-size: 12px;
+    font-weight: bold;
+}
+.tooltip {
+    position: absolute;
+    text-align: left;
+    padding: 8px;
+    font: 12px sans-serif;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    border-radius: 4px;
+    pointer-events: none;
+}
+.utilization-bar {
+    fill: #4CAF50;
+}
+.utilization-background {
+    fill: #e0e0e0;
+}
+.zoom-controls {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.zoom-controls button {
+    font-size: 16px;
+    margin-right: 5px;
+}
+.filter-controls {
+    margin-bottom: 10px;
+}
+.filter-controls select {
+    margin-right: 10px;
+}
+.node-type-count {
+    font-size: 12px;
+    fill: #666;
+}
