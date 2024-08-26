@@ -32,11 +32,11 @@ class VisualizationGenerator:
             
             logger.debug(f"Template file read, size: {len(template)} characters")
 
-            # Prepare data for injection into the template
-            cluster_data_json = json.dumps(self.cluster_data)
-            rolling_indices_json = json.dumps(self.rolling_indices)
-            rolling_indices_size_json = json.dumps(self.rolling_indices_size)
-            all_indices_json = json.dumps(self.all_indices)
+            # Prepare data for injection into the template with beautification
+            cluster_data_json = json.dumps(self.cluster_data, indent=2)
+            rolling_indices_json = json.dumps(self.rolling_indices, indent=2)
+            rolling_indices_size_json = json.dumps(self.rolling_indices_size, indent=2)
+            all_indices_json = json.dumps(self.all_indices, indent=2)
 
             logger.debug(f"Cluster data size: {len(cluster_data_json)} characters")
             logger.debug(f"Rolling indices data size: {len(rolling_indices_json)} characters")
@@ -97,3 +97,4 @@ class VisualizationGenerator:
             logger.error("Invalid rolling indices size data structure")
             return False
         return True
+
