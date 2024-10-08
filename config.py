@@ -6,9 +6,9 @@ LOGGING_LEVEL = logging.INFO
 
 # Required diagnostic files
 REQUIRED_FILES = [
-    'nodes/nodes_stats.json',
-    'nodes/nodes_info.json',
-    'indices/indices_stats.json'
+    'nodes_stats.json',
+    'nodes.json',
+    'indices_stats.json'
 ]
 
 # Visualization settings

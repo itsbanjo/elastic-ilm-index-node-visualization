@@ -25,7 +25,7 @@ class DataProcessor:
     def _process_nodes(self):
         node_types = {"hot": [], "warm": [], "cold": [], "frozen": []}
         nodes_stats = self.raw_data['nodes_stats.json'].get('nodes', {})
-        nodes_info = self.raw_data['nodes_info.json'].get('nodes', {})
+        nodes_info = self.raw_data['nodes.json'].get('nodes', {})
         
         logger.debug(f"Processing nodes. Stats keys: {nodes_stats.keys()}, Info keys: {nodes_info.keys()}")
 
